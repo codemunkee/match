@@ -4,10 +4,12 @@ const shapes = ['bolt', 'diamond', 'paper-plane-o', 'anchor', 'cube', 'leaf', 'b
 let State = function () {
     // this keeps a list of the cards we're currently looking at
     // that may or may not have matched as well as moves and matches
-    this.allCards = [],
-    this.openCards = [],
-    this.moves = 0,
-    this.matches = 0
+    this.allCards = [];
+    this.openCards = [];
+    this.moves = 0;
+    this.matches = 0;
+    this.seconds = 0;
+    this.intervalObj = {};
 };
 
 State.prototype.incrementMoves = function() {
@@ -25,6 +27,10 @@ State.prototype.addOpenCard = function(card) {
 
 State.prototype.clearOpenCards = function() {
     this.openCards = [];
+};
+
+State.prototype.incrementSeconds = function() {
+    this.seconds++;
 };
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -102,6 +108,19 @@ function turnCard(card, state) {
     }
 }
 
+function startTimer(state) {
+    // clear timer if previously instantiated
+    if (state.intervalObj !== undefined) {
+        clearInterval(state.intervalObj);
+        state.seconds = 0;
+    }
+    // start timer
+    state.intervalObj = setInterval(() => {
+        state.incrementSeconds();
+        $('.seconds-passed').text(state.seconds);
+    }, 1000)
+}
+
 function addShapes(cards, cardShapes) {
     cards.map((index, card) => {
         $(card).data('shape', cardShapes[index]);
@@ -127,6 +146,9 @@ function buildBoard(state) {
             turnCard(card, state);
         });
     }
+
+    startTimer(state);
+
 }
 /*
  * set up the event listener for a card. If a card is clicked:
