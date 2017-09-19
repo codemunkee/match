@@ -1,7 +1,7 @@
 // these are the icons on our cards...
 const shapes = ['bolt', 'diamond', 'paper-plane-o', 'anchor', 'cube', 'leaf', 'bicycle', 'bomb'];
 
-var State = function () {
+let State = function () {
     // this keeps a list of the cards we're currently looking at, may or may not have matched
     this.openCards = [],
     this.matches = 0,
@@ -95,7 +95,6 @@ function addShapes(cards, cardShapes) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
 
 /* On Document Ready */
 $(() => {
