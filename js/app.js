@@ -2,43 +2,29 @@
 const shapes = ['bolt', 'diamond', 'paper-plane-o', 'anchor', 'cube', 'leaf', 'bicycle', 'bomb'];
 
 let State = function () {
-    // this keeps a list of the cards we're currently looking at, may or may not have matched
+    // this keeps a list of the cards we're currently looking at
+    // that may or may not have matched as well as moves and matches
+    this.allCards = [],
     this.openCards = [],
-    this.matches = 0,
-    this.nonMatches = 0
+    this.moves = 0,
+    this.matches = 0
 };
 
-State.prototype.turnCard = function (card) {
+State.prototype.incrementMoves = function() {
+    this.moves++;
+};
+
+State.prototype.addCard = function(card) {
+    this.allCards.push(card);
+};
+
+State.prototype.addOpenCard = function(card) {
+    this.incrementMoves();
     this.openCards.push(card);
-    $(card).addClass('open show');
-    if (this.openCards.length === 2) {
-        const card1 = $(this.openCards[0]);
-        const card2 = $(this.openCards[1]);
-        // check if there is a match
-        if (card1.data('shape') === card2.data('shape')) {
-            this.markMatch();
-        } else {
-            this.nonMatch();
-        }
-    }
-    console.log(this.openCards);
 };
 
-State.prototype.markMatch = function() {
-    $(this.openCards[0]).addClass('match');
-    $(this.openCards[1]).addClass('match');
+State.prototype.clearOpenCards = function() {
     this.openCards = [];
-    this.matches++;
-};
-
-State.prototype.nonMatch = function() {
-    setTimeout(() => {
-        console.log('Open Card 0: ' + $(this.openCards[0]));
-        $(this.openCards[0]).removeClass('open show');
-        $(this.openCards[1]).removeClass('open show');
-        this.openCards = [];
-    }, 3000);
-    this.nonMatches++;
 };
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -56,25 +42,63 @@ function shuffle(array) {
     return array;
 }
 
-function buildBoard(state) {
-    let cards = $('.card');
-    clearBoard(cards);
+function markMatch(state) {
+    state.openCards.map((card) => { $(card).addClass('match')});
+    state.clearOpenCards();
+    state.matches++;
+}
 
-    // contains all of the card shapes well display, 2 of each type
-    const cardShapes = shuffle([...shapes, ...shapes]);
-    addShapes(cards, cardShapes);
+function nonMatch(state) {
+    toggleCardClicks(false, state);
+    setTimeout(() => {
+        state.openCards.map((card) => { $(card).removeClass('open show')});
+        state.clearOpenCards();
+        toggleCardClicks(true, state)
+    }, 1000);
+}
 
-    // add event handlers
-    for (const card of cards) {
-        $(card).click(() => { state.turnCard(card); });
+function toggleCardClicks(toggle, state) {
+    if (toggle === true) {
+        state.allCards.map((card) => {
+            $(card).css('cursor', 'auto');
+            $(card).unbind();
+            $(card).click(() => {
+                turnCard(card, state);
+            });
+        })
+    } else if (toggle === false) {
+        state.allCards.map((card) => {
+            $(card).css('cursor', 'not-allowed');
+            $(card).off('click');
+        })
     }
 }
 
 function clearBoard(cards) {
     for (const card of cards) {
-        // clear card classes
+        // clears out classes other than card
         $(card).attr('class', 'card');
         $(card).children('i').attr('class', 'fa');
+        $(card).unbind();
+    }
+}
+
+function turnCard(card, state) {
+    state.addOpenCard(card);
+    $(card).addClass('open show');
+
+    // show the number of moves we've made thus far
+    $('.moves').text(state.moves);
+
+    if (state.openCards.length === 2) {
+        const card1 = $(state.openCards[0]);
+        const card2 = $(state.openCards[1]);
+        // check if there is a match
+        if (card1.data('shape') === card2.data('shape')) {
+            markMatch(state);
+        } else {
+            nonMatch(state);
+        }
     }
 }
 
@@ -85,6 +109,25 @@ function addShapes(cards, cardShapes) {
     });
 }
 
+function buildBoard(state) {
+    let cards = $('.card');
+    clearBoard(cards);
+
+    // contains all of the card shapes well display, 2 of each type
+    const cardShapes = shuffle([...shapes, ...shapes]);
+    addShapes(cards, cardShapes);
+
+    // add event handlers
+    for (const card of cards) {
+        // we keep a record of all cards in our state object so we
+        // don't have to traverse the DOM for operations that interact
+        // with all cards (e.g. disable clicks)
+        state.addCard(card);
+        $(card).click(() => {
+            turnCard(card, state);
+        });
+    }
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -98,7 +141,12 @@ function addShapes(cards, cardShapes) {
 
 /* On Document Ready */
 $(() => {
+    // Instantiate state object
     let state = new State();
+
+    // Allow for new games to be started
     $('i.fa-repeat').click(() => { buildBoard(state) });
+
+    // Build our initial board
     buildBoard(state);
 });
