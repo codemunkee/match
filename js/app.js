@@ -33,6 +33,16 @@ State.prototype.incrementSeconds = function() {
     this.seconds++;
 };
 
+State.prototype.reset = function() {
+    // reset our state
+    this.allCards = [];
+    this.openCards = [];
+    this.moves = 0;
+    this.matches = 0;
+    this.seconds = 0;
+    this.intervalObj = {};
+};
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -49,34 +59,42 @@ function shuffle(array) {
 }
 
 function markMatch(state) {
-    state.openCards.map((card) => { $(card).addClass('match')});
+    state.openCards.map(card => { $(card).addClass('match')});
     state.clearOpenCards();
     state.matches++;
+    // game has been won!
+    if (state.matches === 8) {
+        stopTimer(state);
+    }
 }
 
 function nonMatch(state) {
     toggleCardClicks(false, state);
     setTimeout(() => {
-        state.openCards.map((card) => { $(card).removeClass('open show')});
+        state.openCards.map(card => { $(card).removeClass('open show')});
         state.clearOpenCards();
         toggleCardClicks(true, state)
     }, 1000);
 }
 
 function toggleCardClicks(toggle, state) {
+    // enable or disable click-ability of all cards
     if (toggle === true) {
-        state.allCards.map((card) => {
-            $(card).css('cursor', 'auto');
-            $(card).unbind();
-            $(card).click(() => {
-                turnCard(card, state);
-            });
-        })
+        state.allCards.map(card => { toggleCardClick(true, card, state)})
     } else if (toggle === false) {
-        state.allCards.map((card) => {
-            $(card).css('cursor', 'not-allowed');
-            $(card).off('click');
-        })
+        state.allCards.map(card => { toggleCardClick(false, card, state)})
+    }
+}
+
+function toggleCardClick(toggle, card, state) {
+    // enable or disable click-ability of single card
+    if (toggle === true) {
+        $(card).unbind();
+        $(card).click(() => {
+            turnCard(card, state);
+        });
+    } else if (toggle === false) {
+        $(card).off('click');
     }
 }
 
@@ -92,6 +110,7 @@ function clearBoard(cards) {
 function turnCard(card, state) {
     state.addOpenCard(card);
     $(card).addClass('open show');
+    toggleCardClick(false, card, state);
 
     // show the number of moves we've made thus far
     $('.moves').text(state.moves);
@@ -121,6 +140,10 @@ function startTimer(state) {
     }, 1000)
 }
 
+function stopTimer(state) {
+    clearInterval(state.intervalObj);
+}
+
 function addShapes(cards, cardShapes) {
     cards.map((index, card) => {
         $(card).data('shape', cardShapes[index]);
@@ -129,18 +152,20 @@ function addShapes(cards, cardShapes) {
 }
 
 function buildBoard(state) {
+
+    // start fresh
+    stopTimer(state);
+    $('.moves').text(0);
+    $('.seconds-passed').text(0);
+    state.reset();
+
     let cards = $('.card');
     clearBoard(cards);
 
-    // contains all of the card shapes well display, 2 of each type
     const cardShapes = shuffle([...shapes, ...shapes]);
     addShapes(cards, cardShapes);
 
-    // add event handlers
     for (const card of cards) {
-        // we keep a record of all cards in our state object so we
-        // don't have to traverse the DOM for operations that interact
-        // with all cards (e.g. disable clicks)
         state.addCard(card);
         $(card).click(() => {
             turnCard(card, state);
@@ -166,9 +191,10 @@ $(() => {
     // Instantiate state object
     let state = new State();
 
+    // Build our initial board
+    buildBoard(state);
+
     // Allow for new games to be started
     $('i.fa-repeat').click(() => { buildBoard(state) });
 
-    // Build our initial board
-    buildBoard(state);
 });
