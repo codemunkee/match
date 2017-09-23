@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: "Open Sans", sans-serif;
 }
 
 .container {
@@ -29,8 +29,8 @@ body {
     margin: auto;
 }
 
-h1 {
-    font-family: 'Open Sans', sans-serif;
+.game-title {
+    font-family: 'Pacifico', cursive;
     font-weight: 300;
 }
 
@@ -141,8 +141,37 @@ h1 {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    //border: 1px solid #888;
+    border: 6px solid lightseagreen;
+    border-radius: 16px;
+    width: 80%;
 }
+
+.modal-again {
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Anton", sans-serif;
+    margin-left: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 2px solid lightseagreen;
+    border-radius: 13px;
+}
+
+.modal-results {
+    font-size: 25px;
+}
+
+#modal-again-yes {
+    padding-left: 13px;
+    padding-right: 13px;
+    color: darkgreen;
+}
+
+#modal-again-no {
+    color: #414142;
+}
+

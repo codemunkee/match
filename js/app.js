@@ -64,7 +64,7 @@ function markMatch(state) {
     state.matches++;
     // game has been won!
     if (state.matches === 8) {
-        stopTimer(state);
+        gameOver(state);
     }
 }
 
@@ -144,6 +144,34 @@ function stopTimer(state) {
     clearInterval(state.intervalObj);
 }
 
+function gameOver(state) {
+    // the game is over, stop the timer and give the user the results
+    // and the option to play again
+    stopTimer(state);
+
+    const modal = $('.modal');
+    modal.css('display', 'block');
+
+    $('#modal-moves').text(state.moves);
+    $('#modal-seconds').text(state.seconds);
+
+    $('#modal-again-no').click(() => {
+        modal.css('display', 'none');
+    });
+
+    $('#modal-again-yes').click(() => {
+        modal.css('display', 'none');
+        buildBoard(state);
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    $(window).click(function(evt) {
+        if (evt.target.className === 'modal') {
+            modal.css('display', 'none');
+        }
+    });
+}
+
 function addShapes(cards, cardShapes) {
     cards.map((index, card) => {
         $(card).data('shape', cardShapes[index]);
@@ -194,23 +222,8 @@ $(() => {
     // Build our initial board
     buildBoard(state);
 
-
-    // Allow for new games to be started
+    // Allows for new games to be restarted at any time
     //$('i.fa-repeat').click(() => { buildBoard(state) });
-    $('i.fa-repeat').click(() => {
-        var modal = document.getElementById('myModal');
-        modal.style.display = "block";
-        // When the user clicks on <span> (x), close the modal
-        $('.modal-close').click(function() {
-            modal.style.display = "none";
-        });
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    });
+    $('i.fa-repeat').click(() => { gameOver(state) });
 
 });

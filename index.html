@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
     <meta name="description" content="">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Anton|Pacifico" rel="stylesheet">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
 
+<body>
     <div class="container">
         <header>
-            <h1>Matching Game</h1>
+            <h1 class="game-title">The Matching Game</h1>
         </header>
 
         <section class="score-panel">
@@ -28,8 +29,6 @@
           <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
-
-
         </section>
 
         <ul class="deck">
@@ -85,12 +84,17 @@
     </div>
 
     <!-- Modal presented at game end -->
-    <div id="myModal" class="modal">
+    <div class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
-            <span class="modal-close">X</span>
-            <p>Some text in the Modal..</p>
+            <h1>Nice Work! <img src="./img/thumbs-up.svg" alt="thumbs up"></h1>
+            <p>I wasn't sure at first but I'm certain now, you're a matching master.</p>
+            <p>It took you just <em class="modal-results" id="modal-moves">x</em> moves and <em class="modal-results" id="modal-seconds">x</em> seconds.</p>
+            <hr>
+            <strong>Want to play again?</strong>
+            <span class="modal-again" id="modal-again-yes">Yup</span>
+            <span class="modal-again" id="modal-again-no">Nope</span>
         </div>
 
     </div>
