@@ -113,7 +113,7 @@ function turnCard(card, state) {
     toggleCardClick(false, card, state);
 
     // show the number of moves we've made thus far
-    $('.moves').text(state.moves);
+    $('#move-count').text(state.moves);
 
     if (state.openCards.length === 2) {
         const card1 = $(state.openCards[0]);
@@ -183,7 +183,7 @@ function buildBoard(state) {
 
     // start fresh
     stopTimer(state);
-    $('.moves').text(0);
+    $('#move-count').text(0);
     $('.seconds-passed').text(0);
     state.reset();
 

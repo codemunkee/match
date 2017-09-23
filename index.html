@@ -17,76 +17,87 @@
         </header>
 
         <section class="score-panel">
-          <div class="timer">Time Elapsed: <span class="seconds-passed">0</span></div>
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
-
-        	<span class="moves">0</span> Moves
-
-          <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
+          <div class="score-panel-item">
+              <div class="timer">
+                <p>Time Elapsed:<br>
+                    <em class="seconds-passed">0</em> seconds
+                </p>
+              </div>
+          </div>
+          <div class="score-panel-item">
+              <div class="moves">
+                  <p>Moves:<br>
+                      <span id="move-count">0</span></p>
+              </div>
+          </div>
+          <div class="score-panel-item">
+              <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+              </ul>
+          </div>
+          <div class="score-panel-item">
+              <div class="restart">
+                  <i class="fa fa-repeat"></i>
+              </div>
+          </div>
         </section>
 
         <ul class="deck">
-            <li class="card match">
-                <i class="fa fa-diamond"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-paper-plane-o"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-anchor"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-bolt"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-cube"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-anchor"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-leaf"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-bicycle"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-diamond"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-bomb"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-leaf"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-bomb"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card open show">
-                <i class="fa fa-bolt"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-bicycle"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-paper-plane-o"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
-            <li class="card match">
-                <i class="fa fa-cube"></i>
+            <li class="card">
+                <i class="fa"></i>
             </li>
         </ul>
     </div>
 
     <!-- Modal presented at game end -->
     <div class="modal">
-
-        <!-- Modal content -->
         <div class="modal-content">
             <h1>Nice Work! <img src="./img/thumbs-up.svg" alt="thumbs up"></h1>
             <p>I wasn't sure at first but I'm certain now, you're a matching master.</p>
@@ -96,7 +107,6 @@
             <span class="modal-again" id="modal-again-yes">Yup</span>
             <span class="modal-again" id="modal-again-no">Nope</span>
         </div>
-
     </div>
 
     <script src="js/jquery-3.2.1.min.js"></script>
