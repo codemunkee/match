@@ -7,6 +7,7 @@ let State = function () {
     this.allCards = [];
     this.openCards = [];
     this.moves = 0;
+    this.removedStars = 0;
     this.matches = 0;
     this.seconds = 0;
     this.intervalObj = {};
@@ -16,12 +17,25 @@ State.prototype.incrementMoves = function() {
     this.moves++;
 };
 
+State.prototype.removeStar = function() {
+    this.removedStars++;
+};
+
 State.prototype.addCard = function(card) {
     this.allCards.push(card);
 };
 
 State.prototype.addOpenCard = function(card) {
     this.incrementMoves();
+    // after 35 moves and 45 moves we remove stars
+    switch (this.moves) {
+        case 35:
+            this.removeStar();
+            break;
+        case 45:
+            this.removeStar();
+            break;
+    }
     this.openCards.push(card);
 };
 
@@ -38,6 +52,7 @@ State.prototype.reset = function() {
     this.allCards = [];
     this.openCards = [];
     this.moves = 0;
+    this.removedStars = 0;
     this.matches = 0;
     this.seconds = 0;
     this.intervalObj = {};
@@ -58,40 +73,21 @@ function shuffle(array) {
     return array;
 }
 
-function markMatch(state) {
-    state.openCards.map(card => { $(card).addClass('match')});
-    state.clearOpenCards();
-    state.matches++;
-    // game has been won!
-    if (state.matches === 8) {
-        gameOver(state);
-    }
-}
-
-function nonMatch(state) {
-    toggleCardClicks(false, state);
-    setTimeout(() => {
-        state.openCards.map(card => { $(card).removeClass('open show')});
-        state.clearOpenCards();
-        toggleCardClicks(true, state)
-    }, 1000);
-}
-
-function toggleCardClicks(toggle, state) {
+function toggleCardClicks(state, toggle) {
     // enable or disable click-ability of all cards
     if (toggle === true) {
-        state.allCards.map(card => { toggleCardClick(true, card, state)})
+        state.allCards.map(card => { toggleCardClick(state, true, card)})
     } else if (toggle === false) {
-        state.allCards.map(card => { toggleCardClick(false, card, state)})
+        state.allCards.map(card => { toggleCardClick(state, false, card)})
     }
 }
 
-function toggleCardClick(toggle, card, state) {
+function toggleCardClick(state, toggle, card) {
     // enable or disable click-ability of single card
     if (toggle === true) {
         $(card).unbind();
         $(card).click(() => {
-            turnCard(card, state);
+            turnCard(state, card);
         });
     } else if (toggle === false) {
         $(card).off('click');
@@ -107,14 +103,7 @@ function clearBoard(cards) {
     }
 }
 
-function turnCard(card, state) {
-    state.addOpenCard(card);
-    $(card).addClass('open show');
-    toggleCardClick(false, card, state);
-
-    // show the number of moves we've made thus far
-    $('#move-count').text(state.moves);
-
+function checkForMatch(state) {
     if (state.openCards.length === 2) {
         const card1 = $(state.openCards[0]);
         const card2 = $(state.openCards[1]);
@@ -124,6 +113,47 @@ function turnCard(card, state) {
         } else {
             nonMatch(state);
         }
+    }
+}
+
+function markMatch(state) {
+    state.openCards.map(card => { $(card).addClass('match')});
+    state.clearOpenCards();
+    state.matches++;
+    // game has been won!
+    if (state.matches === 8) {
+        gameOver(state);
+    }
+}
+
+function nonMatch(state) {
+    toggleCardClicks(state, false);
+    setTimeout(() => {
+        state.openCards.map(card => { $(card).removeClass('open show')});
+        state.clearOpenCards();
+        toggleCardClicks(state, true)
+    }, 1000);
+}
+
+function turnCard(state, card) {
+    state.addOpenCard(card);
+    $(card).addClass('open show');
+    toggleCardClick(state, false, card);
+
+    // show the number of moves we've made thus far
+    $('#move-count').text(state.moves);
+
+    showStars($('.score-panel-item').children('.stars')[0]);
+
+    checkForMatch(state);
+
+}
+
+function showStars(starParentEl) {
+    const stars = $(starParentEl).find('.fa-star');
+    for (const star of stars) {
+        console.log(star);
+        $(star).css('display', 'none');
     }
 }
 
@@ -196,7 +226,7 @@ function buildBoard(state) {
     for (const card of cards) {
         state.addCard(card);
         $(card).click(() => {
-            turnCard(card, state);
+            turnCard(state, card);
         });
     }
 
