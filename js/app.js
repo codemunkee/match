@@ -223,7 +223,6 @@ $(() => {
     buildBoard(state);
 
     // Allows for new games to be restarted at any time
-    //$('i.fa-repeat').click(() => { buildBoard(state) });
-    $('i.fa-repeat').click(() => { gameOver(state) });
+    $('i.fa-repeat').click(() => { buildBoard(state) });
 
 });
