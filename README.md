@@ -6,8 +6,14 @@ Behind the scenes a `State` object keeps track of the current status of the game
 
 ## Try it out
 
-(https://codemunkee.github.io/match/)[https://codemunkee.github.io/match/]
+https://codemunkee.github.io/match/
 
 ## In the future
 
 It would be fun to keep a server-side leaderboard and possibly do some better player performance ranking with the time to complete the game (today it just looks at the number of moves, though the time required to complete all matches *is* tracked).
+
+## Screenshots
+
+![Screenshot 1](https://codemunkee.github.io/match/img/screenshot1.png)
+![Screenshot 2](https://codemunkee.github.io/match/img/screenshot2.png)
+![Screenshot 3](https://codemunkee.github.io/match/img/screenshot3.png)
