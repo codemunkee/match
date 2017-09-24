@@ -1,20 +1,9 @@
 # Memory Game Project
 
-## Table of Contents
+A simple card matching game that demonstrates the use of jQuery for manipulating the DOM, in particular, facilitating interaction with the game's player.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+Behind the scenes a `State` object keeps track of the current status of the game. Used later for gauging the player's performance.
 
-## Instructions
+## In the future
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+It would be fun to keep a server-side leaderboard and possibly do some better player performance ranking with the time to complete the game (today it just looks at the number of moves, though the time required to complete all matches *is* tracked).
