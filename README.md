@@ -14,9 +14,9 @@ It would be fun to keep a server-side leaderboard and possibly do some better pl
 
 ## Screenshots
 
-Full-size 
+### Full-size 
 ![Screenshot 1](https://codemunkee.github.io/match/img/screenshot1.png)
-On a mobile device
+### On a mobile device
 ![Screenshot 2](https://codemunkee.github.io/match/img/screenshot2.png)
-When you win the game. :-)
+### When you win the game. :-)
 ![Screenshot 3](https://codemunkee.github.io/match/img/screenshot3.png)
