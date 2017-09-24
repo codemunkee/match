@@ -143,17 +143,22 @@ function turnCard(state, card) {
     // show the number of moves we've made thus far
     $('#move-count').text(state.moves);
 
-    showStars($('.score-panel-item').children('.stars')[0]);
+    showStars(state, $('.score-panel-item').children('.stars')[0]);
 
     checkForMatch(state);
-
 }
 
-function showStars(starParentEl) {
+function showStars(state, starParentEl) {
+    const stars = $(starParentEl).find('.fa-star');
+    for (let i = 0; i < state.removedStars; i++ ) {
+        $(stars[i]).css('display', 'none');
+    }
+}
+
+function resetStars(starParentEl) {
     const stars = $(starParentEl).find('.fa-star');
     for (const star of stars) {
-        console.log(star);
-        $(star).css('display', 'none');
+        $(stars).css('display', 'inline-block');
     }
 }
 
@@ -182,8 +187,23 @@ function gameOver(state) {
     const modal = $('.modal');
     modal.css('display', 'block');
 
+    function buildMessage(headerText, messageText) {
+        $('.modal-header').text(headerText);
+        $('.modal-message').text(messageText);
+    }
+
+    if (state.removedStars === 0) {
+        buildMessage('Excellent', 'I wasn\'t sure at first but I\'m certain now, you\'re a matching master.');
+    } else if (state.removedStars === 1) {
+        buildMessage('Well done!', 'I\'m impressed. With a few more matches going your way 3 stars will be yours.');
+    } else {
+        buildMessage('Good Try!', 'Not the best I\'ve seen but I can see some potential!');
+    }
+
     $('#modal-moves').text(state.moves);
     $('#modal-seconds').text(state.seconds);
+
+    showStars(state, $('.modal-content').children('.modal-stars')[0]);
 
     $('#modal-again-no').click(() => {
         modal.css('display', 'none');
@@ -215,6 +235,8 @@ function buildBoard(state) {
     stopTimer(state);
     $('#move-count').text(0);
     $('.seconds-passed').text(0);
+    resetStars($('.score-panel-item').children('.stars')[0]);
+    resetStars($('.modal-content').children('.modal-stars')[0]);
     state.reset();
 
     let cards = $('.card');
@@ -233,16 +255,6 @@ function buildBoard(state) {
     startTimer(state);
 
 }
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
 
 /* On Document Ready */
 $(() => {

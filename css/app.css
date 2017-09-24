@@ -122,6 +122,10 @@ body {
     width: 25%;
 }
 
+.fa-repeat {
+    font-size: 25px;
+}
+
 /*
  Styles for the Timer
  */
@@ -150,6 +154,13 @@ body {
     border: 6px solid lightseagreen;
     border-radius: 16px;
     width: 80%;
+}
+
+.modal-stars li {
+    list-style: none;
+    display: inline-block;
+    color: #ff14d3;
+    font-size: 30px;
 }
 
 .modal-again {

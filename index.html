@@ -27,14 +27,14 @@
           <div class="score-panel-item">
               <div class="moves">
                   <p>Moves:<br>
-                      <span id="move-count">0</span></p>
+                  <span id="move-count">0</span></p>
               </div>
           </div>
           <div class="score-panel-item">
               <ul class="stars">
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
               </ul>
           </div>
           <div class="score-panel-item">
@@ -99,9 +99,15 @@
     <!-- Modal presented at game end -->
     <div class="modal">
         <div class="modal-content">
-            <h1>Nice Work! <img src="./img/thumbs-up.svg" alt="thumbs up"></h1>
-            <p>I wasn't sure at first but I'm certain now, you're a matching master.</p>
-            <p>It took you just <em class="modal-results" id="modal-moves">x</em> moves and <em class="modal-results" id="modal-seconds">x</em> seconds.</p>
+            <h1 class="modal-header"></h1>
+            <ul class="modal-stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
+            <p>It took you <em class="modal-results" id="modal-moves">x</em> moves and <em class="modal-results" id="modal-seconds">x</em> seconds.</p>
+            <p class="modal-message"></p>
+            <p>I bet you can do even better.</p>
             <hr>
             <strong>Want to play again?</strong>
             <span class="modal-again" id="modal-again-yes">Yup</span>
