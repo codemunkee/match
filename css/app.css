@@ -52,6 +52,10 @@ body {
     margin: 0 auto;
 }
 
+.score-star-box {
+    width: 35%;
+}
+
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
@@ -59,9 +63,14 @@ body {
     font-size: 30px;
 }
 
+
 .score-panel .moves {
     margin: 0 auto;
     width: 25%;
+}
+
+.score-restart-box {
+    width: 15%;
 }
 
 .score-panel .restart {
@@ -202,7 +211,7 @@ body {
     }
 
     .score-panel .stars li {
-        font-size: 25px;
+        font-size: 28px;
     }
 
     .fa-repeat {
@@ -220,5 +229,36 @@ body {
     .deck .card {
         height: 75px;
         width: 75px;
+    }
+}
+
+@media only screen and (min-width: 451px) and (max-width:  700px) {
+
+    .container {
+        margin: 0 auto;
+        width: 450px;
+    }
+
+    .score-panel-item {
+        font-weight: bold;
+        font-size: 15px;
+        margin: 2px;
+    }
+
+    .fa-repeat {
+        font-size: 20px;
+    }
+
+    .deck {
+        margin: 0 auto;
+        width: 100%;
+        height: 320px;
+        min-height: 500px;
+        box-shadow: none;
+    }
+
+    .deck .card {
+        height: 82px;
+        width: 82px;
     }
 }
