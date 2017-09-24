@@ -143,6 +143,10 @@ function turnCard(state, card) {
     // show the number of moves we've made thus far
     $('#move-count').text(state.moves);
 
+    if (state.moves === 1) {
+        startTimer(state);
+    }
+
     showStars(state, $('.score-panel-item').children('.stars')[0]);
 
     checkForMatch(state);
@@ -251,8 +255,6 @@ function buildBoard(state) {
             turnCard(state, card);
         });
     }
-
-    startTimer(state);
 
 }
 
