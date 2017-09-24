@@ -195,7 +195,7 @@ function gameOver(state) {
     if (state.removedStars === 0) {
         buildMessage('Excellent', 'I wasn\'t sure at first but I\'m certain now, you\'re a matching master.');
     } else if (state.removedStars === 1) {
-        buildMessage('Well done!', 'I\'m impressed. With a few more matches going your way 3 stars will be yours.');
+        buildMessage('Well done!', 'I\'m impressed. With a few more matches going your way, 3 stars will be yours!');
     } else {
         buildMessage('Good Try!', 'Not the best I\'ve seen but I can see some potential!');
     }

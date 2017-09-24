@@ -35,6 +35,45 @@ body {
     height: 50px;
 }
 
+.score-panel {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.score-panel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+    color: #ff14d3;
+    font-size: 30px;
+}
+
+.score-panel .moves {
+    margin: 0 auto;
+    width: 25%;
+}
+
+.score-panel .restart {
+    margin: 0 auto;
+    cursor: pointer;
+    width: 25%;
+}
+
+.fa-repeat {
+    font-size: 25px;
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -83,55 +122,7 @@ body {
     font-size: 33px;
 }
 
-/*
- * Styles for the Score Panel
- */
-
-.score-panel {
-    display: flex;
-    flex-direction: row;
-    height: 50px;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.score-panel-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.score-panel .stars li {
-    list-style: none;
-    display: inline-block;
-    color: #ff14d3;
-    font-size: 30px;
-}
-
-.score-panel .moves {
-    margin: 0 auto;
-    width: 25%;
-}
-
-.score-panel .restart {
-    margin: 0 auto;
-    cursor: pointer;
-    width: 25%;
-}
-
-.fa-repeat {
-    font-size: 25px;
-}
-
-/*
- Styles for the Timer
- */
-
 /* Modal Content */
-/* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -189,3 +180,37 @@ body {
     color: #414142;
 }
 
+/* For smaller devices */
+
+@media only screen and (max-width:  450px) {
+    body {
+        font-size: 25px;
+    }
+
+    .container {
+        margin: 0;
+    }
+
+    .game-title {
+        font-size: 60px;
+    }
+
+    .score-panel {
+        margin-top: 30px;
+        height: 100px;
+    }
+
+    .score-panel-item {
+        font-weight: bold;
+        margin: 2px;
+    }
+
+    .fa-repeat {
+        font-size: 40px;
+    }
+
+    .deck {
+        box-shadow: none;
+    }
+
+}
